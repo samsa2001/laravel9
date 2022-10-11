@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\backend\CategoryController;
 use App\Http\Controllers\backend\PostController;
+use App\Http\Controllers\web\BlogController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,7 +24,7 @@ Route::get('/', function () {
 
 require __DIR__.'/auth.php';
 
-Route::group(['prefix' => 'backend', 'middleware' => 'auth'],function(){
+Route::group(['prefix' => 'backend', 'middleware' => ['auth','admin']],function(){
     Route::get('/', function () {
         return view('dashboard');
     })->name('dashboard');
@@ -31,4 +32,12 @@ Route::group(['prefix' => 'backend', 'middleware' => 'auth'],function(){
         'post' => PostController::class,
         'category' => CategoryController::class
     ]);
+});
+
+
+Route::group(['prefix' => 'blog'], function () {
+    Route::controller(BlogController::class)->group(function(){
+        Route::get('/', "index")->name("web.post.index");
+        Route::get('/{post}', "show")->name("web.post.show");
+    });
 });

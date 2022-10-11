@@ -2,6 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+h1 {
+  @apply text-4xl mb-3;
+}
+label {
+  @apply mt-2 block;
+}
+
 .table {
     @apply table-auto w-full my-3
 }
@@ -12,22 +19,29 @@
     @apply px-4 border
 }
 
-.form-control {
+.form-control input, .form-control textarea, .form-control select {
     @apply  rounded-md shadow-sm bg-purple-50 w-full
 }
 
 .btn {
-    @apply inline-block font-bold py-2 px-4 rounded;
+  @apply inline-block font-bold py-2 px-4 rounded transition-all;
+}
+.btn-small {
+    @apply font-normal py-1 px-2 text-xs;
   }
   .btn-slate {
-    @apply bg-slate-500 text-white;
-  }
-  .btn-slate:hover {
-    @apply bg-slate-700;
+    @apply bg-slate-500 text-white hover:bg-slate-700;
   }
   .btn-green {
-    @apply bg-green-500 text-white;
+    @apply bg-green-500 text-white hover:bg-green-700;
   }
-  .btn-green:hover {
-    @apply bg-green-700;
+  .btn-red {
+    @apply bg-red-500 text-white hover:bg-red-700;
   }
+
+.card {
+  @apply border shadow-sm p-6;
+}
+.card-white {
+  @apply bg-white;
+}

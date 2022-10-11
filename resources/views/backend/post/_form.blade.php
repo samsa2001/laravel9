@@ -46,9 +46,9 @@
     </div>
 </div>
 @if ( isset($task) && $task == 'edit' )
-<div class="form-control">
+<div class="form-control mt-2">
     <label for="imagen">Imagen</label>
     <input type="file" name="image" id="imagen">
 </div>
 @endif
-<input type="submit" value="Enviar" class="btn btn-slate">
+<input type="submit" value="Enviar" class="btn btn-slate my-3">

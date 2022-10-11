@@ -25,13 +25,13 @@
             <td>{{$post->image}}</td>
             <td>{{$post->created_at->format('d-m-Y')}}</td>
             <td>{{$post->updated_at->format('d-M-Y')}}</td>
-            <td>
-                <a href="{{ route('post.show',$post) }}" class="btn btn-primary">Ver</a> 
-                <a href="{{ route('post.edit',$post) }}" class="btn btn-warning">Editar</a> 
+            <td class="flex flex-row">
+                <a href="{{ route('post.show',$post) }}" class="btn btn-small btn-green mr-1">Ver</a> 
+                <a href="{{ route('post.edit',$post) }}" class="btn btn-small btn-slate mx-1">Editar</a> 
                 <form action="{{ route('post.destroy',$post) }}" method="post">
                   @method("DELETE")
                   @csrf
-                  <button type="submit">Borrar</button>
+                  <button type="submit" class="btn btn-small btn-red ml-1">Borrar</button>
                 </form>
             </td>
         </tr>            

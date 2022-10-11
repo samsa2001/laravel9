@@ -12,4 +12,4 @@
     <small class="text-danger">{{$message}}</small>
     @enderror
 </div>
-<input type="submit" value="Enviar" class="btn btn-primary">
+<input type="submit" value="Enviar" class="btn btn-slate my-3">
