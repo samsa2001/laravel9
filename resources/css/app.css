@@ -1,0 +1,33 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.table {
+    @apply table-auto w-full my-3
+}
+.table th {
+    @apply px-6 py-2 bg-gray-50 font-medium text-gray-400 uppercase border tracking-widest
+}
+.table td {
+    @apply px-4 border
+}
+
+.form-control {
+    @apply  rounded-md shadow-sm bg-purple-50 w-full
+}
+
+.btn {
+    @apply inline-block font-bold py-2 px-4 rounded;
+  }
+  .btn-slate {
+    @apply bg-slate-500 text-white;
+  }
+  .btn-slate:hover {
+    @apply bg-slate-700;
+  }
+  .btn-green {
+    @apply bg-green-500 text-white;
+  }
+  .btn-green:hover {
+    @apply bg-green-700;
+  }
