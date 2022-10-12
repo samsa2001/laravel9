@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreCategoryRequest;
+use App\Http\Requests\UpdateCategoryRequest;
 use App\Models\Category;
+use App\Models\Post;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -19,14 +21,14 @@ class CategoryController extends Controller
         return response()->json(Category::paginate(10));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function all()
     {
-        //
+        return response()->json(Category::get());
+    }
+    
+    public function slug($slug)
+    {
+        return response()->json(Category::where("url_clean",$slug)->firstOrFail());
     }
 
     /**
@@ -37,7 +39,7 @@ class CategoryController extends Controller
      */
     public function store(StoreCategoryRequest $request)
     {
-        //
+        return response()->json(Category::create($request->validated()));
     }
 
     /**
@@ -51,16 +53,6 @@ class CategoryController extends Controller
         return response()->json($category);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Category  $category
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Category $category)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
@@ -69,9 +61,10 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+    public function update(UpdateCategoryRequest $request, Category $category)
     {
-        //
+        $category->update( $request->validated() );
+        return response()->json($category);
     }
 
     /**
@@ -82,6 +75,29 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        $category->delete();
+        return response()->json('Categoría borrada');
+    }
+
+
+
+    public function posts($id)
+    {
+        // en Query builder
+
+        // $posts = Post::join('categories',"categories.id","=","posts.category_id")
+        // ->select("posts.*", "categories.title as category")
+        // ->where("categories.id",$id)
+        // ->get();
+        //->toSql();
+
+        // en Eloquent
+
+        $posts = Post::with("category")
+        ->where("category_id",$id)
+        ->get();
+
+
+        return response()->json($posts);
     }
 }
