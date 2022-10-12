@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Str;     
 
@@ -15,6 +16,10 @@ class StoreCategoryRequest extends FormRequest
             $url_clean = Str::slug($this->url_clean) ;
         }
         $this->merge([ 'url_clean' => $url_clean ]);
+    }
+    function failedValidation(Validator $validator)
+    {
+        
     }
     /**
      * Determine if the user is authorized to make this request.
