@@ -2,6 +2,7 @@
     <div>
   
       <h1>Listado de Post</h1>
+      <router-link :to="{ name:'save' }">Crear</router-link>
   
       <o-table
         :loading="isLoading"
@@ -19,8 +20,22 @@
         <o-table-column field="created_at" label="Fecha" v-slot="p">
           {{ p.row.created_at }}
         </o-table-column>
-        <o-table-column field="category" label="Categoría" v-slot="p">
+        <o-table-column field="category" label="Categorías" v-slot="p">
           {{ p.row.category.title }}
+        </o-table-column>
+        <o-table-column field="url_clean" label="Acciones" v-slot="p">
+          <router-link :to="{ name:'save',params:{ 'url_clean': p.row.url_clean } }">Editar</router-link>
+          <o-button
+            iconLeft="delete"
+            rounded
+            size="small"
+            variant="danger"
+            @click="
+              deletePostRow = p;
+              confirmDeleteActive = true;
+            "
+            >Eliminar</o-button
+          >
         </o-table-column>
       </o-table>
       <br/>

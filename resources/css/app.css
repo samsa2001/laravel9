@@ -38,10 +38,19 @@ label {
   .btn-red {
     @apply bg-red-500 text-white hover:bg-red-700;
   }
+  .o-btn--primary {
+    @apply btn btn-green;
+  }
 
 .card {
   @apply border shadow-sm p-6;
 }
 .card-white {
   @apply bg-white;
+}
+.alert {
+  @apply border-2 p-4 my-3 text-lg rounded font-semibold flex justify-center;
+}
+.alert-success{
+  @apply  bg-green-300 text-green-900 border-green-700;
 }

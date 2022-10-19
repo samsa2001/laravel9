@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 })->name('welcome');
-Route::get('/vue', function () {
+Route::get('/vue/{rutaDeVue?}', function () {
     return view('vue');
 })->name('vue.post');
 
