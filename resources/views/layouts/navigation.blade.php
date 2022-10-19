@@ -5,7 +5,7 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
-                    <a href="{{ route('dashboard') }}">
+                    <a href="{{ route('welcome') }}">
                         <x-application-logo class="block h-10 w-auto fill-current text-gray-600" />
                     </a>
                 </div>
@@ -20,6 +20,15 @@
                     </x-nav-link>
                     <x-nav-link :href="route('category.index')" :active="request()->routeIs('category.index')">
                         {{ __('Categories') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('web.post.index')" :active="request()->routeIs('web.post.index')">
+                        {{ __('Front End Post') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('vue.post')" :active="request()->routeIs('vue.post')">
+                        {{ __('Vue') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('web.contacto')" :active="request()->routeIs('web.contacto')">
+                        {{ __('Contact') }}
                     </x-nav-link>
                 </div>
             </div>

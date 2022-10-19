@@ -18,7 +18,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('welcome');
+Route::get('/vue', function () {
+    return view('vue');
+})->name('vue.post');
 
 
 
@@ -41,3 +44,7 @@ Route::group(['prefix' => 'blog'], function () {
         Route::get('/{post}', "show")->name("web.post.show");
     });
 });
+
+// contacto
+Route::view('/contacto', 'web.contacto')->name('web.contacto');
+Route::post('/send-contact','App\Http\Controllers\Web\ContactController@send')->name('web.send.contacto');

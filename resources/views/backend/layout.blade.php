@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap">
 
     <!-- Scripts -->
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @vite('resources/css/app.css')
 </head>
 
 <body class="font-sans antialiased">
@@ -35,7 +35,8 @@
                 @yield('content')
             </div>
         </div>
+        
+    @vite('resources/js/app.js')
 </body>
-{{--<script src="{{ asset("js/app.js") }}"></script>--}}
 
 </html>
