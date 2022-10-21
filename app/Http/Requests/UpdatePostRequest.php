@@ -49,7 +49,8 @@ class UpdatePostRequest extends FormRequest
             'content' => 'required|min:5',
             'category_id' => 'required',
             'posted' => 'required',
-            'image' => 'mimes:jpeg,jpg,png|max:102400'
+            'image' => 'mimes:jpeg,jpg,png|max:102400',
+            'tags' => []
         ];
     }
 }

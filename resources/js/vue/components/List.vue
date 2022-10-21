@@ -55,7 +55,7 @@
         </o-pagination>
     </div>
       <o-modal v-model:active="confirmDeleteActive">
-        <div class="p-4 text-white">
+        <div class="p-4">
           <p>¿Seguro que quieres eliminar el registro selecionado?</p>
         </div>
 

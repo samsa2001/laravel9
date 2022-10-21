@@ -29,7 +29,7 @@
     @enderror
 </div>
 <div class="lg:flex flex-row">
-    <div class="form-control lg:basis-1/2 lg:mr-3">
+    <div class="form-control lg:basis-1/3 lg:mr-3">
         <label for="category_id">Categoria</label>
         <select name="category_id" id="category_id" class="form-control">
             @foreach ($categories as $title=>$id)
@@ -37,7 +37,15 @@
             @endforeach
         </select>
     </div>
-    <div class="form-control lg:basis-1/2 lg:ml-3">
+    <div class="form-control lg:basis-1/3 lg:mr-3">
+        <label for="tags">Etiquetas</label>
+        <select name="tags[]" id="tags" class="form-control" multiple>
+            @foreach ($tags as $title=>$tag_id)
+            <option {{ in_array($tag_id, $post->tags()->get()->pluck('id')->all())  ? 'selected="selected"':''}} value="{{ $tag_id }}">{{ $title }}</option>
+            @endforeach
+        </select>
+    </div>
+    <div class="form-control lg:basis-1/3 lg:ml-3">
         <label for="posted">Publicado</label>
         <select name="posted" class="form-control">
             <option value="not">No</option>

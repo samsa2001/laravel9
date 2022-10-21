@@ -13,8 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('personal_access_tokens', function (Blueprint $table) {
-            $table->timestamp('expires_at')->nullable()->before('last_used_at');
+        Schema::create('tags', function (Blueprint $table) {
+            $table->id();
+            $table->string('title', 500)->nullable();
+            $table->string('slug', 500)->nullable();
+            $table->timestamps();
         });
     }
 
@@ -25,8 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('personal_access_tokens', function (Blueprint $table) {
-            $table -> dropColumn('expires_at');
-        });
+        Schema::dropIfExists('tags');
     }
 };

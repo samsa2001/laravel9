@@ -83,10 +83,11 @@ export default {
                     .then((res) => {
                         this.$oruga.notification.open({
                         message: "Guardado con éxito",
-                        position: "bottom-right",
+                        position: "top",
                         duration: 4000,
                         closable: true,
                         });
+                        this.$router.go(-1)
                     })
                     .catch(error => {
                         if (error.response.data.title)
@@ -108,6 +109,7 @@ export default {
                         duration: 4000,
                         closable: true,
                         });
+                        this.$router.go(-1)
                     })
                     .catch(error => {
                         if (error.response.data.title)

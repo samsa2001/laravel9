@@ -7,6 +7,7 @@ use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
 use App\Models\Category;
 use App\Models\Post;
+use App\Models\Tag;
 
 class PostController extends Controller
 {
@@ -29,8 +30,9 @@ class PostController extends Controller
     public function create()
     {
         $categories = Category::pluck('id','title');
+        $tags = Tag::pluck('id','title');
         $post = new Post();
-        return view('backend.post.create',compact('post','categories'));
+        return view('backend.post.create',compact('post','categories','tags'));
     }
 
     /**
@@ -44,6 +46,7 @@ class PostController extends Controller
         // obtenemos el array con los parámetros del request
         $requestData = $request->validated();
         $post = Post::create($requestData);
+        $post->tags()->attach($requestData['tags']);
         return redirect()->route('post.index')->with('status', 'Registro añadido');
 
         
@@ -69,7 +72,8 @@ class PostController extends Controller
     public function edit(Post $post)
     {
         $categories = Category::pluck('id','title');
-        return view('backend.post.edit',compact('post','categories'));
+        $tags = Tag::pluck('id','title');
+        return view('backend.post.edit',compact('post','categories','tags'));
     }
 
     /**
@@ -89,6 +93,7 @@ class PostController extends Controller
             
         }
         $post->update($data );
+        $post->tags()->sync($data['tags']);
         //$request->session()->flash('status', 'Registro actualizado');
         return redirect()->route('post.index')->with('status', 'Registro actualizado');
     }
@@ -101,6 +106,7 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
+        $post->tags()->detach();
         $post->delete();        
         return redirect()->route('post.index');
     }

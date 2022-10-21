@@ -51,3 +51,5 @@ label {
 .alert-success{
   @apply  bg-green-300 text-green-900 border-green-700;
 }
+.o-modal__overlay { z-index: 1; }
+.o-modal__content { z-index: 100; }

@@ -10,6 +10,7 @@
             <th>Categoría</th>
             <th>Posteado</th>   
             <th>Imagen</th>
+            <th>Etiquetas</th>
             <th>Creación</th>
             <th>Actualizacion</th>
             <th>Acciones</th>
@@ -23,6 +24,11 @@
             <td>{{ $post->category->title }}</td>
             <td>{{$post->posted}}</td>
             <td>{{$post->image}}</td>
+            <td>
+            @foreach($post->tags as $tag)
+                <div class="mr-2 float-left">{{ $tag->title }}</div>
+            @endforeach
+            </td>
             <td>{{$post->created_at->format('d-m-Y')}}</td>
             <td>{{$post->updated_at->format('d-M-Y')}}</td>
             <td class="flex flex-row">
