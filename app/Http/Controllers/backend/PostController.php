@@ -46,7 +46,8 @@ class PostController extends Controller
         // obtenemos el array con los parámetros del request
         $requestData = $request->validated();
         $post = Post::create($requestData);
-        $post->tags()->attach($requestData['tags']);
+        if ( isset($requestData['tags']) )
+            $post->tags()->attach($requestData['tags']);
         return redirect()->route('post.index')->with('status', 'Registro añadido');
 
         
@@ -93,8 +94,10 @@ class PostController extends Controller
             
         }
         $post->update($data );
-        $post->tags()->sync($data['tags']);
-        //$request->session()->flash('status', 'Registro actualizado');
+        isset($data['tags']) ?
+                    $post->tags()->sync($data['tags'])
+                :
+                    $post->tags()->detach();
         return redirect()->route('post.index')->with('status', 'Registro actualizado');
     }
 

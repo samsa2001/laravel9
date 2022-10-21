@@ -23,6 +23,11 @@
         <o-table-column field="category" label="Categorías" v-slot="p">
           {{ p.row.category.title }}
         </o-table-column>
+        <o-table-column field="category" label="Etiquetas" v-slot="p">
+          <div v-for="t in p.row.tags" :key="t.id">
+            {{ t.title }}
+          </div>
+        </o-table-column>
         <o-table-column field="url_clean" label="Acciones" v-slot="p">
           <div class="btn btn-slate mr-2"><router-link :to="{ name:'save',params:{ 'url_clean': p.row.url_clean } }">Editar</router-link></div>
           <o-button
@@ -85,8 +90,7 @@ export default  {
     listPage() {
       this.isLoading = true;
       this.$axios.get("/api/post?page=" + this.currentPage).then((res) => {
-        this.posts = res.data;
-        console.log(this.posts);
+        this.posts = res.data;      
         this.isLoading = false;
       });
     },

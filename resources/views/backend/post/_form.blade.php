@@ -32,8 +32,8 @@
     <div class="form-control lg:basis-1/3 lg:mr-3">
         <label for="category_id">Categoria</label>
         <select name="category_id" id="category_id" class="form-control">
-            @foreach ($categories as $title=>$id)
-            <option {{ $post->category_id == $id ? 'selected="selected"':''}} value="{{ $id }}">{{ $title }}</option>
+            @foreach ($categories as $title=>$cat_id)
+            <option {{ $post->category_id == $cat_id ? 'selected="selected"':''}} value="{{ $cat_id }}">{{ $title }}</option>
             @endforeach
         </select>
     </div>
@@ -41,15 +41,15 @@
         <label for="tags">Etiquetas</label>
         <select name="tags[]" id="tags" class="form-control" multiple>
             @foreach ($tags as $title=>$tag_id)
-            <option {{ in_array($tag_id, $post->tags()->get()->pluck('id')->all())  ? 'selected="selected"':''}} value="{{ $tag_id }}">{{ $title }}</option>
+            <option {{ in_array($tag_id,old('tags') ?: $post->tags()->pluck('tag_id')->toArray())  ? 'selected="selected"':''}} value="{{ $tag_id }}">{{ $title }}</option>
             @endforeach
         </select>
     </div>
     <div class="form-control lg:basis-1/3 lg:ml-3">
         <label for="posted">Publicado</label>
         <select name="posted" class="form-control">
-            <option value="not">No</option>
-            <option value="yes">Sí</option>
+            <option {{ $post->posted == 'not' ? 'selected="selected"':''}} value="not">No</option>
+            <option {{ $post->posted == 'yes'  ? 'selected="selected"':''}} value="yes">Sí</option>
         </select>
     </div>
 </div>
