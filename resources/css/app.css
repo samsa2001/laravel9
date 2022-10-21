@@ -38,9 +38,6 @@ label {
   .btn-red {
     @apply bg-red-500 text-white hover:bg-red-700;
   }
-  .o-btn--primary {
-    @apply btn btn-green;
-  }
 
 .card {
   @apply border shadow-sm p-6;

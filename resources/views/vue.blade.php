@@ -1,4 +1,4 @@
-@extends ('backend.layout')
+@extends ('web.layout-vue')
     @section ('content')
     <div id="app"></div>
     @endsection

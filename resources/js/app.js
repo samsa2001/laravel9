@@ -1,11 +1,5 @@
 import './bootstrap';
 
-// import Alpine from 'alpinejs';
-
-// window.Alpine = Alpine;
-
-// Alpine.start();
-
 import { createApp } from "vue";
 
 import App from "./App.vue"
@@ -13,6 +7,9 @@ import App from "./App.vue"
 import axios from 'axios'
 
 import router from './vue/router'
+
+//tailwind
+import '../css/app.css'
 
 // oruga
 import Oruga from '@oruga-ui/oruga-next'

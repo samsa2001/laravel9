@@ -1,9 +1,14 @@
 <template>
     <div>
+        <h1 v-if="post">Actualizar post {{ post.id }}</h1>
+        <h1 v-else>Nuevo post</h1>
         <form @submit.prevent="submit">
+            <div class="grid grid-cols-2 gap-3">           
+                <div class="col-span-2">     
             <o-field label="Titulo" :variant="errors.title ? 'danger' : 'primary'" :message="errors.title">
                 <o-input v-model="form.title" value=""></o-input>
             </o-field>
+        </div>
             <o-field label="Descripción" :variant="errors.description ? 'danger' : 'primary'" :message="errors.description">
                 <o-input v-model="form.description" type="textarea" value=""></o-input>
             </o-field>
@@ -24,6 +29,7 @@
             <o-button variant="primary" native-type="submit">
                 Enviar
             </o-button>
+            </div>
         </form>
     </div>
 </template>

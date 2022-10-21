@@ -2,7 +2,7 @@
     <div>
   
       <h1>Listado de Post</h1>
-      <router-link :to="{ name:'save' }">Crear</router-link>
+      <o-button iconLeft="plus" @click="$router.push({ name: 'save' })">Crear</o-button>
   
       <o-table
         :loading="isLoading"
@@ -24,7 +24,7 @@
           {{ p.row.category.title }}
         </o-table-column>
         <o-table-column field="url_clean" label="Acciones" v-slot="p">
-          <router-link :to="{ name:'save',params:{ 'url_clean': p.row.url_clean } }">Editar</router-link>
+          <div class="btn btn-slate mr-2"><router-link :to="{ name:'save',params:{ 'url_clean': p.row.url_clean } }">Editar</router-link></div>
           <o-button
             iconLeft="delete"
             rounded
@@ -54,6 +54,16 @@
             >
         </o-pagination>
     </div>
+      <o-modal v-model:active="confirmDeleteActive">
+        <div class="p-4 text-white">
+          <p>¿Seguro que quieres eliminar el registro selecionado?</p>
+        </div>
+
+        <div class="flex flex-row-reverse gap-2 bg-gray-100 p-3">
+          <o-button variant="danger" @click="deletePost()">Eliminar</o-button>
+          <o-button @click="confirmDeleteActive = false">Cancelar</o-button>
+        </div>
+      </o-modal>
   </template>
 
 <script>
