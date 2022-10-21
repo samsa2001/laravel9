@@ -23,7 +23,11 @@
             <td>{{$post->title}}</td>
             <td>{{ $post->category->title }}</td>
             <td>{{$post->posted}}</td>
-            <td>{{$post->image}}</td>
+            <td>
+                @if ($post->image)
+                <img src="{{ asset('image/otro/'.$post->image)}}">
+                @endif
+            </td>
             <td>
             @foreach($post->tags as $tag)
                 <div class="mr-2 float-left">{{ $tag->title }}</div>
