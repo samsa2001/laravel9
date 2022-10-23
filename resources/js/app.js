@@ -1,5 +1,7 @@
 import './bootstrap';
 
+import Alpine from 'alpinejs';
+
 import { createApp } from "vue";
 
 import App from "./App.vue"
@@ -18,6 +20,12 @@ import '@oruga-ui/oruga-next/dist/oruga-full.css'
 
 // material design
 import "@mdi/font/css/materialdesignicons.min.css"
+
+
+
+window.Alpine = Alpine;
+
+Alpine.start();
 
 const app = createApp(App).use(Oruga).use(router)
 app.config.globalProperties.$axios = axios

@@ -37,6 +37,7 @@
         </div>
         
     @vite('resources/js/app.js')
+    @include('backend.scripts.scripts')
 </body>
 
 </html>

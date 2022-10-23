@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\backend\CategoryController;
 use App\Http\Controllers\backend\PostController;
+use App\Http\Controllers\backend\UserController;
 use App\Http\Controllers\web\BlogController;
 use Illuminate\Support\Facades\Route;
 
@@ -27,13 +28,15 @@ Route::get('/vue/{rutaDeVue?}', function () {
 
 require __DIR__.'/auth.php';
 
+Route::get('/backend', function () {
+    return view('dashboard');
+})->middleware('auth')->name('dashboard');
+
 Route::group(['prefix' => 'backend', 'middleware' => ['auth','admin']],function(){
-    Route::get('/', function () {
-        return view('dashboard');
-    })->name('dashboard');
     Route::resources([
         'post' => PostController::class,
-        'category' => CategoryController::class
+        'category' => CategoryController::class,
+        'user' => UserController::class
     ]);
 });
 
