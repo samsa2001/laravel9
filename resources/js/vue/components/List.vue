@@ -88,16 +88,21 @@ export default  {
       setTimeout(this.listPage, 100);
     },
     listPage() {
+      const config = {
+        headers: { Authorization: `Bearer ${this.$cookies.get('auth').token}` }
+      };
       this.isLoading = true;
-      this.$axios.get("/api/post?page=" + this.currentPage).then((res) => {
-        this.posts = res.data;      
-        this.isLoading = false;
-      });
+      this.$axios
+        .get("/api/post?page=" + this.currentPage, config)
+        .then((res) => { 
+          this.posts = res.data;      
+          this.isLoading = false;
+        });
     },
     deletePost() {
       this.confirmDeleteActive = false;
       this.posts.data.splice(this.deletePostRow.index, 1);
-      this.$axios.delete("/api/post/" + this.deletePostRow.row.id);
+      this.$axios.delete("/api/post/" + this.deletePostRow.row.id, config);
       this.$oruga.notification.open({
         message: "Registro eliminado",
         position: "bottom-right",

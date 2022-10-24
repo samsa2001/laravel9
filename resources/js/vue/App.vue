@@ -50,7 +50,7 @@
                     duration-150
                     transition-all
                   "
-                  v-if="!$root.isLoggedIn"
+                  v-if="!isLoggedIn"
                   :to="{ name: 'login' }"
                   >Login</router-link
                 >
@@ -70,13 +70,13 @@
                     duration-150
                     transition-all
                   "
-                  v-if="$root.isLoggedIn"
+                  v-if="isLoggedIn"
                   :to="{ name: 'list' }"
                   >Post</router-link
                 >
   
                 <o-button
-                  v-if="$root.isLoggedIn"
+                  v-if="isLoggedIn"
                   variant="danger"
                   @click="logout"
                 >
@@ -84,7 +84,7 @@
                 </o-button>
               </div>
   
-              <div class="flex flex-col items-center" v-if="$root.isLoggedIn">
+              <div class="flex flex-col items-center" v-if="isLoggedIn">
                 <div
                   class="
                     rounded-full
@@ -96,10 +96,10 @@
                     font-bold
                   "
                 >
-                  {{ $root.user.name.substr(0, 2).toUpperCase() }}
+                  {{ user.name.substr(0, 2).toUpperCase() }}
                 </div>
                 <p>
-                  {{ $root.user.name }}
+                  {{ user.name }}
                 </p>
               </div>
             </div>
@@ -110,39 +110,34 @@
       <div class="flex gap-3 bg-gray-200"></div>
       <div class="container">
         <router-view></router-view>
-      </div>
+      </div>  
     </div>
   </template>
   <script>
+
+  import { mapState } from 'vuex';
+
   export default {
-    data() {
-      return {
-        isLoggedIn: false,
-        user: "",
-        token: "",
-      };
+    computed:{
+      ...mapState('authStore',['isLoggedIn','user','token'])
     },
-    created() {
-      if (window.Laravel.isLoggedIn) {
+    created() {      
+      const auth = this.$cookies.get("auth");
+      
+      if (auth) {
+        this.$store.commit('authStore/updateUser',auth)
         this.isLoggedIn = true;
-        this.user = window.Laravel.user;
-        this.token = window.Laravel.token;
-      } else {
-        const auth = this.$cookies.get("auth");
-        if (auth) {
-          this.isLoggedIn = true;
-          this.user = auth.user;
-          this.token = auth.token;
-          this.$axios
-            .post("/api/user/token-check", {
-              token: auth.token,
-            })
-            //.then(() => {})
-            .catch(() => {
-              this.setCookieAuth("");
-              window.location.href = "/vue/login";
-            });
-        }
+        this.user = auth.user;
+        this.token = auth.token;
+        this.$axios
+          .post("/api/user/token-check", {
+            token: auth.token,
+          })
+          //.then(() => {})
+          .catch(() => {
+            this.setCookieAuth("");
+            this.$router.push({ name: 'login' });
+          });
       }
     },
     methods: {
@@ -153,12 +148,8 @@
           })
           .then((res) => {
             this.setCookieAuth("");
-            // this.$root.setCookieAuth({
-            //   isLoggedIn: false,
-            //   token: "",
-            //   user: this.user,
-            // });
-            window.location.href = "/vue/login";
+            this.$store.commit('authStore/clearUser')
+            this.$router.push({ name: 'login' });
           });
       },
       setCookieAuth(data) {

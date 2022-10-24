@@ -24,6 +24,9 @@
 </template>
 
 <script>
+
+import { mapState, mapActions } from "vuex"
+
 export default {
     methods: {
         cleanErrorsForm() {
@@ -35,10 +38,11 @@ export default {
             this.$axios
                 .post('/api/user/login', this.form)
                 .then((res)=>{
+                    this.$store.commit('authStore/updateUser',res.data)
                     this.$root.setCookieAuth(res.data);
                     setTimeout(() => {
                         this.disabledBotton = false;
-                        window.location.href = "/vue";
+                        this.$router.push({ name: 'list' });
                     }, 1500);
                     this.$oruga.notification.open({
                         message: "Login exitoso",
@@ -54,6 +58,9 @@ export default {
                     }
                 })
         }
+    },
+    computed:{
+      ...mapState('authStore',['isLoggedIn','user','token'])
     },
     data(){
         return {

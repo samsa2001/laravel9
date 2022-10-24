@@ -31,12 +31,12 @@ Route::get('category/all',[CategoryController::class,'all']);
 Route::get('category/slug/{slug}',[CategoryController::class,'slug']); 
 Route::get('category/{id}/posts',[CategoryController::class,'posts']); 
 
-Route::resource('post',PostController::class)->except(['create','edit']);
 Route::resource('category',CategoryController::class)->except(['create','edit']); 
 
 Route::get('tags/all',[TagController::class,'all']);
 
 Route::group(['middleware' => 'auth:sanctum'], function(){
+    Route::resource('post',PostController::class)->except(['create','edit']);
 });
 
 // usuarios

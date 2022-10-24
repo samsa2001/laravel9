@@ -122,9 +122,12 @@ export default {
         },
         submit() {
             this.clearErrorsForm()
+            const config = {
+                headers: { Authorization: `Bearer ${this.$cookies.get('auth').token}` }
+            };
 
             if (this.post == "")
-                return this.$axios.post('/api/post', this.form)
+                return this.$axios.post('/api/post', this.form, config)
                     .then((res) => {
                         this.$oruga.notification.open({
                             message: "Guardado con éxito",
@@ -132,7 +135,8 @@ export default {
                             duration: 4000,
                             closable: true,
                         });
-                        this.$router.go(-1)
+                        
+                    this.$router.push({ name: 'list' });
                     })
                     .catch(error => {
                         if (error.response.data.title)
@@ -146,7 +150,8 @@ export default {
                         if (error.response.data.content)
                             this.errors.content = error.response.data.content[0];
                     })
-            return this.$axios.patch('/api/post/' + this.post.id, this.form)
+            this.$axios
+                .patch('/api/post/' + this.post.id, this.form, config)
                 .then((res) => {
                     this.$oruga.notification.open({
                         message: "Modificado con éxito",
@@ -154,7 +159,7 @@ export default {
                         duration: 4000,
                         closable: true,
                     });
-                    this.$router.go(-1)
+                    this.$router.push({ name: 'list' });
                 })
                 .catch(error => {
                     if (error.response.data.title)
