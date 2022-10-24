@@ -125,7 +125,8 @@ export default {
             const config = {
                 headers: { Authorization: `Bearer ${this.$cookies.get('auth').token}` }
             };
-
+            console.log(this.form);
+            
             if (this.post == "")
                 return this.$axios.post('/api/post', this.form, config)
                     .then((res) => {
@@ -211,7 +212,13 @@ export default {
                     },
                 })
                 .then((res) => {
-                    console.log(res);
+                    this.$oruga.notification.open({
+                        message: "Imagen cargada",
+                        position: "bottom right",
+                        duration: 4000,
+                        closable: true,
+                    });
+                    this.file=null
                 })
                 .catch((error) => {
                     this.fileError = error.response.data.message;
