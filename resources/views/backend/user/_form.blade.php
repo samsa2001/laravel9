@@ -16,7 +16,7 @@
 @endif
 <div class="form-control">
     <label for="password">Contraseña</label>
-    <input type="password" name="password" class="form-control" value="{{ old('password',$user->password) }}">
+    <input type="password" name="password" class="form-control" value="{{ old('password') }}">
     @error('password')
     <small class="text-red-500">{{$message}}</small>
     @enderror

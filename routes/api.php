@@ -39,5 +39,8 @@ Route::get('tags/all',[TagController::class,'all']);
 Route::group(['middleware' => 'auth:sanctum'], function(){
 });
 
+// usuarios
 Route::post('user/login', [UserController::class, 'login']);
+Route::post('user/logout', [UserController::class, 'logout']);
+Route::post('user/token-check', [UserController::class, 'checkToken']);
  
