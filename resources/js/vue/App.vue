@@ -128,9 +128,9 @@
       
       if (auth) {
         this.$store.commit('authStore/updateUser',auth)
-        this.isLoggedIn = true;
-        this.user = auth.user;
-        this.token = auth.token;
+        // this.isLoggedIn = true;
+        // this.user = auth.user;
+        // this.token = auth.token;
         this.$axios
           .post("/api/user/token-check", {
             token: auth.token,
